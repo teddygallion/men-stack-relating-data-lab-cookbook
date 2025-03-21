@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <link rel="stylesheet" href="/css/styles.css">
+	<title>My Recipes</title>
+</head>
+<body>
+	<%- include("../partials/_navbar.ejs") %>
+	<h1>My Recipes</h1>
+
+	<a href="/recipes/new">Add new recipe</a>
+
+
+	<% if (recipes && recipes.length > 0) { %>
+		<ul>
+			<% recipes.forEach(recipe => { %>
+				<li>
+					<h3><%= recipe.name %></h3>
+					<p><%= recipe.instructions %></p>
+
+					<% if (recipe.ingredients && recipe.ingredients.length > 0) { %>
+						<ul>
+							<% recipe.ingredients.forEach(ingredient => { %>
+								<li><%= ingredient.name %></li>
+							<% }) %>
+						</ul>
+					<% } else { %>
+						<p>No ingredients listed.</p>
+					<% } %>
+					<a href="/recipes/<%= recipe._id %>/edit">Edit</a> |
+					<a href="/recipes/<%= recipe._id %>">View Recipe</a>
+				</li>
+			<% }) %>
+		</ul>
+	<% } else { %>
+		<p>No recipes found. <a href="/recipes/new">Add a new recipe</a></p>
+	<% } %>
+</body>
+</html>
